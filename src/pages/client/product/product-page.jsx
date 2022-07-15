@@ -87,11 +87,6 @@ let parameters = [
 
 export default function ProductPage() {
   const { state } = useLocation();
-  // @ts-ignore
-  let filter = null;
-  if (state) {
-    filter = state.filter;
-  }
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const page = useRef(null);
@@ -167,6 +162,12 @@ export default function ProductPage() {
 
   // call the first time render to fetch product from api
   useEffect(() => {
+    // @ts-ignore
+    let filter = null;
+    if (state) {
+      filter = state.filter;
+    }
+
     if (filter) {
       // set new filter
       var sub = [...subCategories];
