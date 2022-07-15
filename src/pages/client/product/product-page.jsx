@@ -170,7 +170,7 @@ export default function ProductPage() {
 
     if (filter) {
       // set new filter
-      var sub = [...subCategories];
+      var sub = [...intialSubCategories];
       var index = sub.findIndex(x => x.value == filter.value);
       sub[index] = filter;
 
