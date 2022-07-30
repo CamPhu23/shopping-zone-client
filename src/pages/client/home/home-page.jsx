@@ -103,7 +103,7 @@ const features = [
     icon: ReceiptRefundIcon,
   },
   {
-    name: 'Mua hàng dễ dành',
+    name: 'Mua hàng dễ dàng',
     description:
       'Chỉ với những cú click có thể dễ dàng chọn những sản phẩm yêu thích.',
     icon: CursorClickIcon,
