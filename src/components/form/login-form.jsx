@@ -43,7 +43,6 @@ export const LoginForm = ({ handleSubmitForm }) => {
 
   const handleLogin = (data) => {
     handleSubmitForm(data);
-    reset();
   };
 
   const handleOnChange = () => {

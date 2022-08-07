@@ -29,7 +29,6 @@ export const RegisterForm = ({handleSubmitForm}) => {
 
   const handleRegister = ({email, username, password}) => {
     handleSubmitForm({email, username, password});
-    reset();
   };
 
   const handleOnChange = () => {

@@ -29,7 +29,6 @@ export default function LoginPage() {
 
   const handleLogin = (data) => {
     dispatch(loginRequest({ isClient: false, ...data }));
-    reset();
   };
 
   const handleOnChange = () => {

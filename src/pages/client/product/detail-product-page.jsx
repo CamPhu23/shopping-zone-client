@@ -51,6 +51,7 @@ export default function DetailProductPage() {
   const [selectedSize, setSelectedSize] = useState();
   const [sizes, setSizes] = useState([]);
   const [qty, setQty] = useState(1);
+  const [isImageLoaded, setIsImageLoaded] = useState(false);
 
   const [comments, setComments] = useState();
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
@@ -63,6 +64,7 @@ export default function DetailProductPage() {
       .then(product => {
         setProduct(product);
         setComments(product.comments.reverse());
+        setIsImageLoaded(true);
       })
   }, [id]);
 
@@ -97,7 +99,7 @@ export default function DetailProductPage() {
   const renderProductImage = (images) => {
     return (
       images && (
-        <div className="text-center object-cover object-center rounded w-full md:w-1/2 md:mr-3">
+        <div className={`text-center object-cover object-center rounded w-full md:w-1/2 md:mr-3`}>
           <Carousel showStatus={false} showArrows={false} autoPlay={true} thumbWidth={60} >
             {images.map((img) => (
               <div key={img.id}>
@@ -295,7 +297,7 @@ export default function DetailProductPage() {
 
     return (
       <button
-        className="flex text-white justify-center bg-teal-600 border-0 py-2 px-10 focus:outline-none hover:bg-teal-700 rounded mt-6 mb-4 w-full lg:mt-12 lg:mb-10"
+        className={`${(qty == 0 || !selectedColor || !selectedSize) ? "bg-teal-500" : "bg-teal-600 hover:bg-teal-700"} flex text-white justify-center border-0 py-2 px-10 focus:outline-none rounded mt-6 mb-4 w-full lg:mt-12 lg:mb-10`}
         onClick={onAddToCartClicked}
         disabled={qty == 0 || !selectedColor || !selectedSize}
       >
@@ -377,13 +379,13 @@ export default function DetailProductPage() {
   const renderProductDescription = (description) => {
     return (
       description && (
-        <div className="max-w-full lg:w-4/5 mx-auto">
-          <div className="max-w-2xl grid grid-cols-1 text-justify mx-6 mt-6 lg:max-w-7xl lg:px-6 ">
+        <div className="max-w-5xl lg:w-4/5 mx-auto">
+          <div className="grid grid-cols-1 text-justify mx-6 mt-6">
             <div>
               <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
                 Mô tả sản phẩm
               </h2>
-              <p className="mt-4 text-gray-500 text-justify break-all">{description}</p>
+              <p className="mt-4 text-gray-500 text-justify">{description}</p>
             </div>
           </div>
         </div>

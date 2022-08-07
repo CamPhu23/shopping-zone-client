@@ -387,8 +387,14 @@ const AccountInfoPage = () => {
                     onClick={() => onTableRowClick(order._id)}>
                     {currencyFomatter(order.totalBill)}
                   </td>
-                  <td className="px-6 py-4 uppercase" onClick={() => onTableRowClick(order._id)}>{order.status}</td>
-                  {order.status == RECEIPT_CONSTANT.RECEIPT_DONE && 
+                  <td className={`px-6 py-4 uppercase font-semibold
+                    ${RECEIPT_CONSTANT.RECEIPT_DONE == order.status ? "text-green-500" : " "}
+                    ${RECEIPT_CONSTANT.RECEIPT_IN_PROGRESS == order.status ? "text-yellow-500" : " "}
+                    ${RECEIPT_CONSTANT.RECEIPT_SUCCESS == order.status ? "text-blue-500" : " "}`}
+                    onClick={() => onTableRowClick(order._id)}>
+                    {order.status}
+                  </td>
+                  {order.status == RECEIPT_CONSTANT.RECEIPT_DONE &&
                     (<td className="px-2 py-4 uppercase">
                       <button
                         onClick={() => onRatingButtonClick(order._id)}

@@ -4,7 +4,7 @@ import { ProductsCart } from '../../../components/product/product-list-cart';
 import { currencyFomatter } from '../../../converter/currency-fomatter.js'
 import { totalPay, totalDiscount, totalBill, shippingCost } from '../../../converter/calculate-payment'
 import { useForm } from "react-hook-form";
-import { paymentService } from '../../../services/modules'
+import { accountService, paymentService } from '../../../services/modules'
 import { clearCartRequest } from '../../../services/actions/product-action';
 import Toast from "../../../components/toast/toast";
 import { ICON } from '../../../assets/svg-icon';
@@ -21,10 +21,23 @@ export default function PaymentPage() {
 
   const products = useSelector(state => state.product.products);
   const [isCODPayment, setCODPayment] = useState(true);
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
   const dispatch = useDispatch();
 
   const navigator = useNavigate();
+
+  useEffect(() => {
+    accountService
+      .getUserInfo()
+      .then((info) => {
+        let defaultValues = {};
+        defaultValues.fullname = info.fullname;
+        defaultValues.phone = info.phone;
+        defaultValues.email = info.email;
+        defaultValues.address = info.address;
+        reset({ ...defaultValues });
+      });
+  }, [])
 
   useEffect(() => {
     if (_.isEmpty(products)) {
@@ -61,7 +74,7 @@ export default function PaymentPage() {
         setToastMessages("Thanh toán thành công");
         setToastIcon(ICON.Success);
         setLoading(false);
-        
+
         setTimeout(() => {
           setDisable(false);
           dispatch(clearCartRequest());
@@ -69,10 +82,10 @@ export default function PaymentPage() {
       })
       .catch(e => {
         let error = JSON.parse(e);
-        
+
         setLoading(false);
         setLoading(false);
-        
+
         setToastShow(true);
         setToastMessages(error?.data.messages);
         setToastIcon(ICON.Fail);
