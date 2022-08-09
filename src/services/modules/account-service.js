@@ -12,12 +12,13 @@ const getUserInfo = () => {
 };
 
 const updateUserInfo = (formData) => {
+  console.log(formData);
   return axiosRequest
     .post(`${BASE_URL}/account/update`, formData)
     .then((response) => response)
     .catch((err) => {
       console.log(err);
-      throw new Error(err);
+      throw err;
     })
 };
 

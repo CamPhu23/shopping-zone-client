@@ -47,8 +47,14 @@ const AccountInfoPage = () => {
         setToastIcon(ICON.Success);
       })
       .catch((e) => {
+        let error = JSON.parse(e);
+        const message =
+          (error.status == 400)
+            ? "Tài khoản hoặc email đã được sử dụng"
+            : "Cập nhật tài khoản thất bại";
+
         setToastShow(true);
-        setToastMessages("Cập nhật thất bại");
+        setToastMessages(message);
         setToastIcon(ICON.Fail);
       });
 
@@ -239,7 +245,7 @@ const AccountInfoPage = () => {
             name="id"
             id="id"
             className="hidden"
-            defaultValue={info.id}
+            defaultValue={info._id}
             {...register("id")}
           />
 
